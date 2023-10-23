@@ -18,13 +18,11 @@ def validate_key2(key2):
     return key2
 
 def generate_shifted_alphabet(key2):
-    # First, remove duplicate characters from key2
     unique_chars = ""
     for char in key2:
         if char not in unique_chars:
             unique_chars += char
 
-    # Next, generate the permuted alphabet
     shifted = unique_chars
     for char in ALPHABET:
         if char not in unique_chars:
@@ -71,19 +69,15 @@ def main():
     global ENCRYPTED_MESSAGE
 
     while True:
-        print("Choose the operation:")
-        print("1 - Encrypt")
-        print("2 - Decrypt")
-        print("3 - Encrypt with 2 keys")
-        print("4 - Decrypt with 2 keys")
-        print("0 - Exit")
+        print("Caesar or two-key-caesar")
 
-        choice = input("Select option: ")
+
+        choice = input()
 
         if choice == '0':
             break
 
-        if choice in ['1', '3']:
+        if choice in ['caesar 1', 'two-key-caesar 1']:
             message = input("Enter the message for encryption: ")
             sanitized_message = sanitize_input(message)
 
@@ -98,7 +92,7 @@ def main():
                 print("Incorrect key 1. Enter a value between 1 and 25.")
                 continue
 
-            if choice == '1':
+            if choice == 'caesar 1':
                 ENCRYPTED_MESSAGE = cezar_encrypt(sanitized_message, key1)
                 print("The encrypted message is:", ENCRYPTED_MESSAGE)
             else:
@@ -113,7 +107,7 @@ def main():
                 print("Shifted alphabet based on key2:", generate_shifted_alphabet(key2))
                 print("The encrypted message with 2 keys is:", ENCRYPTED_MESSAGE)
 
-        elif choice in ['2', '4']:
+        elif choice in ['caesar 2', 'two-key-caesar 2']:
             encrypted_message = input("Enter the encrypted message for decryption: ")
             sanitized_message = sanitize_input(encrypted_message)
 
@@ -128,7 +122,7 @@ def main():
                 print("Incorrect key 1. Enter a value between 1 and 25.")
                 continue
 
-            if choice == '2':
+            if choice == 'caesar 2':
                 decrypted_message = cezar_decrypt(sanitized_message, key1)
                 print("The decrypted message is:", decrypted_message)
             else:
@@ -140,6 +134,7 @@ def main():
                     continue
 
                 decrypted_message = cezar_decrypt_2keys(sanitized_message, key1, key2)
+                print("Shifted alphabet based on key2:", generate_shifted_alphabet(key2))
                 print("The decrypted message with 2 keys is:", decrypted_message)
 
         else:
